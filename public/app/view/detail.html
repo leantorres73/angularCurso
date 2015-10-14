@@ -1,0 +1,23 @@
+<div ng-controller="ListController">
+	Nombre: <input ng-model="name" />
+	Temporada:
+	<select ng-model="selectedSeason">
+		<option value=""></option>
+		<option ng-repeat="season in seasons" value="{{season}}">{{season}}</option>
+	</select>
+	Capitulo:
+	<select ng-model="selectedChapter">
+		<option value=""></option>
+		<option ng-repeat="chapter in chapters" value="{{chapter}}">{{chapter}}</option>
+	</select>
+	<a href=""> Agregar Personas </a>
+	<table border="1">
+	<tr><th>Nombre</th><th> Temporada de muerte</th><th>Capitulo de muerte</th><th>Botones</th></tr>
+	<tr ng-repeat="character in characters | filter:{ name: name , deadseason: selectedSeason , deadchapter: selectedChapter }"> <td>{{character.name}}</td><td>{{character.deadseason}}</td><td>{{character.deadchapter}}</td> <td><a href=""> Borrar </a> <a ng-click="getInfo(character.name)"> Detalle </a></td></tr>
+	</table>
+	<div style="margin-top:20px;width:700px;">
+		Detalle del personaje: 
+		</br>
+		{{detail}}
+	</div>
+</div>

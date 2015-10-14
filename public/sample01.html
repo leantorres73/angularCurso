@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="myApp">
+
+<head>
+  <title>Angular Sample 01</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link type="text/css" rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
+  <link type="text/css" rel="stylesheet" href="css/app.css" />
+</head>
+
+<body>
+  <div class="container">
+    <h3>Sample 01</h3>
+
+    <div ng-controller="myController">
+      <user-info user="person"></user-info>
+    </div>
+
+    <div>
+      <ul>
+        <li directive-a></li>
+        <li directive-b></li>
+        <li>
+          <div directive-c></div>
+        </li>
+        <li directive-d>Jon Snow</li>
+        <li directive-e></li>
+        <li ng-controller="controllerA">
+          <span directive-e></span>
+        </li>
+        <li class="directive-x"></li>
+      </ul>
+    </div>
+
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript">
+      angular.module("myApp", [])
+        .controller("myController", ["$scope", function($scope) {
+          $scope.person = {
+            name: "Jon",
+            surname: "Snow"
+          };
+        }])
+        .controller("controllerA", ["$scope", function($scope) {
+          $scope.name = "Jon Snow";
+        }])
+        .directive("userInfo", function() {
+          var directive = {
+            restrict: "E",
+            template: "<p><strong>User:</strong> {{user.name}} {{user.surname}}</p>",
+            scope: {
+              user: "="
+            }
+          };
+          return directive;
+        })
+        .directive("directiveA", function() {
+          return {
+            restrict: "A",
+            template: "<strong>Directive A</strong>"
+          };
+        })
+        .directive("directiveX", function() {
+          return {
+            restrict: "C",
+            template: "<strong>Directive X</strong>"
+          };
+        })
+        .directive("directiveB", function() {
+          return {
+            restrict: "A",
+            templateUrl: "view/template01.html"
+          };
+        })
+        .directive("directiveC", function() {
+          return {
+            restrict: "A",
+            template: "<strong>Directive C</strong>",
+            replace: true
+          };
+        })
+        .directive("directiveD", function() {
+          return {
+            restrict: "A",
+            template: "<span><strong>Nombre:</strong> <ng-transclude></ng-transclude></span>",
+            transclude: true
+          };
+        })
+        .directive("directiveE", function() {
+          return {
+            restrict: "A",
+            template: "<span><strong>Nombre:</strong> {{name}}</span>",
+            controller: ["$scope", function($scope) {
+              if (!$scope.name){
+                $scope.name = "Desconocido"
+              }
+            }]
+          };
+        });
+    </script>
+</body>
+
+</html>

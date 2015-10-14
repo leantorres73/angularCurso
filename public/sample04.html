@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="myApp">
+
+<head>
+  <title>Angular Sample 04</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link type="text/css" rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
+</head>
+
+<body>
+  <div class="container">
+    <h3>Sample 04</h3>
+
+    <div class="panel panel-default">
+      <div class="panel-body" ng-controller="SimpleController">
+        <div>
+          <form class="form-horizontal" ng-model="search.$">
+            <div class="form-group">
+              <label class="col-sm-1 text-right">Name: </label>
+              <div class="col-sm-6">
+                <input class="form-control" type="text" ng-model="search.name" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-1 text-right">Family: </label>
+              <div class="col-sm-6">
+                <input class="form-control" type="text" ng-model="search.family" />
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div>
+          <ul>
+            <li ng-repeat="character in characters | filter:search:strict | orderBy: name">{{character.name}} (
+              <strong>{{character.family | uppercase}}</strong>)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript">
+      var myApp = angular.module("myApp", []);
+
+      myApp.controller("SimpleController",
+        function($scope) {
+          $scope.characters = [{
+            name: 'Jon Snow',
+            family: 'Stark'
+          }, {
+            name: 'Sansa Stark',
+            family: 'Stark'
+          }, {
+            name: 'Tyrion Lannister',
+            family: 'Lannister'
+          }];
+        });
+    </script>
+</body>
+
+</html>
